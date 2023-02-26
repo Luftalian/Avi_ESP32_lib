@@ -1,4 +1,4 @@
-// version: 1.0.0
+// version: 1.1.0
 #pragma once
 
 #ifndef LogBoard67_H
@@ -22,6 +22,7 @@ Timer timer;
 
 class LogBoard67
 {
+private:
     // SPI_FlashBuffは送る配列
     uint8_t SPI_FlashBuff[256] = {};
 
@@ -36,10 +37,27 @@ class LogBoard67
 
 public:
     void RoutineWork();
+    bool sendFlag2 = false;
+    char sendChar2 = '\0';
 };
 
 void LogBoard67::RoutineWork()
 {
+    if (sendFlag2)
+    {
+        Serial.print(xPortGetCoreID());
+        Serial2.write(sendChar2);
+        Serial.println("test");
+        if (Serial2.available() > 0)
+        {
+            char a = Serial2.read();
+            if (a == 'j')
+            {
+                Serial.println("return text");
+                sendFlag2 = false;
+            }
+        }
+    }
     if (SPIFlashLatestAddress >= SPI_FLASH_MAX_ADDRESS)
     {
         Serial.printf("SPIFlashLatestAddress: %u\n", SPIFlashLatestAddress);
