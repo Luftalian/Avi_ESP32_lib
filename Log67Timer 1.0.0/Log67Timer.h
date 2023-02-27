@@ -5,7 +5,7 @@
 #define LogTIMER_H
 #include <Arduino.h>
 
-class Timer
+class Log67Timer
 {
 public:
     unsigned long Gettime_record();
@@ -14,7 +14,7 @@ public:
     bool start_flag = true;
 };
 
-unsigned long Timer::Gettime_record()
+unsigned long Log67Timer::Gettime_record()
 {
     time = micros();
     time -= start_time;

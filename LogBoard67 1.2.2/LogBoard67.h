@@ -4,12 +4,12 @@
 #ifndef LogBoard67_H
 #define LogBoard67_H
 #include <Arduino.h>
-#include <SPICREATE.h> // 2.0.0
-#include <S25FL512S.h> // 1.2.1
-#include <H3LIS331.h>  // 1.2.0
-#include <ICM20948.h>  // 2.0.0
-#include <LPS25HB.h>   // 1.0.0
-#include <LogTIMER.h>  // 1.0.0
+#include <SPICREATE.h>  // 2.0.0
+#include <S25FL512S.h>  // 1.2.1
+#include <H3LIS331.h>   // 1.2.0
+#include <ICM20948.h>   // 2.0.0
+#include <LPS25HB.h>    // 1.0.0
+#include <Log67Timer.h> // 1.0.0
 
 // センサのクラス
 H3LIS331 H3lis331;
@@ -18,7 +18,7 @@ LPS Lps25;
 Flash flash1;
 
 // Timerクラスのインスタンス化
-Timer timer;
+Log67Timer timer;
 
 class LogBoard67
 {
