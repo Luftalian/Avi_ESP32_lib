@@ -1,4 +1,4 @@
-// version: 1.1.0
+// version: 1.1.1
 #pragma once
 
 #ifndef LogBoard67_H
@@ -23,6 +23,7 @@ Timer timer;
 class LogBoard67
 {
 private:
+    uint64_t serialcount = 0;
     // SPI_FlashBuffは送る配列
     uint8_t SPI_FlashBuff[256] = {};
 
@@ -41,13 +42,20 @@ public:
     char sendChar2 = '\0';
 };
 
+#define SERIALCOUNTMAX 500
+
 void LogBoard67::RoutineWork()
 {
     if (sendFlag2)
     {
-        Serial.print(xPortGetCoreID());
-        Serial2.write(sendChar2);
-        Serial.println("test");
+        serialcount++;
+        if (serialcount > SERIALCOUNTMAX)
+        {
+            serialcount = 0;
+            Serial.print(xPortGetCoreID());
+            Serial2.write(sendChar2);
+            Serial.println("test");
+        }
         if (Serial2.available() > 0)
         {
             char a = Serial2.read();
