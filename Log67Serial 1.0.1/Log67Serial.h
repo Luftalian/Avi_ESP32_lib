@@ -1,4 +1,4 @@
-// version: 1.0.0
+// version: 1.0.1
 #pragma once
 
 #ifndef Log67Serial_H
@@ -15,12 +15,11 @@ class Log67Serial
 private:
     unsigned long time_serial1 = 0;
     unsigned long time_serial2 = 0;
-
-public:
     // Serial2を送るときに使う
     bool sendFlag = false;
     char sendChar = '\0';
 
+public:
     void setup();
     void sendSerial2();
     void setCommand(char command);
