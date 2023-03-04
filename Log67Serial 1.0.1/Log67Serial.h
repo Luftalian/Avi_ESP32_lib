@@ -20,7 +20,7 @@ private:
     char commandDelete = 'd';
 
 public:
-    void setup();
+    void setup(char setCommandReturn = 'j', char setCommandDelete = 'd', uint64_t setSerialFrequency = 500000);
     void sendSerial2();
     void setCommand(char command);
     void stopCommand();
@@ -28,10 +28,12 @@ public:
     static void sendTask(void *pvParameters);
 };
 
-void Log67Serial::setup(char setCommandReturn = 'j', char setCommandDelete = 'd')
+// 引数は指定しなくていい。デフォルト値がある
+void Log67Serial::setup(char setCommandReturn, char setCommandDelete, uint64_t setSerialFrequency)
 {
     commandReturn = setCommandReturn;
     commandDelete = setCommandDelete;
+    serialFrequency = setSerialFrequency;
     time_serial1 = micros();
 }
 
@@ -70,13 +72,13 @@ void Log67Serial::sendTask(void *pvParameters)
 {
     Log67Serial Log67Serial2;
     Log67Serial2.setup();
-    Log67Serial2.setCommand(commandDelete);
+    Log67Serial2.setCommand(Log67Serial2.commandDelete);
     while (1)
     {
         Log67Serial2.sendSerial2();
 
         char pre3 = Serial2.read();
-        if (pre3 == commandReturn) // 'j'
+        if (pre3 == Log67Serial2.commandReturn) // 'j'
         {
             Serial.println("return text2");
             Log67Serial2.sendFlag = false;
